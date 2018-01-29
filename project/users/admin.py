@@ -42,7 +42,7 @@ class UserAdminChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('full_name', 'email', 'password', 'type_of_user', 'active', 'admin')
+        fields = ('email', 'password', 'admin', 'active')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -59,7 +59,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('admin',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('full_name', 'type_of_user')}),
+        ('Personal info', {'fields': ('username', 'full_name', 'type_of_user')}),
         ('Permissions', {'fields': ('admin', 'active')}),
     )
     add_fieldsets = (
@@ -68,7 +68,7 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2')}
          ),
     )
-    search_fields = ('email', 'full_name')
+    search_fields = ('email', 'full_name', 'username')
     ordering = ('-created',)
     filter_horizontal = ()
 
